@@ -1,4 +1,4 @@
-function MyPlot(noise_x,noise_y,x,y,xd,yd,sigx,sigy,errx,erry,MSElist)
+function MyPlot(noise_x,noise_y,x,y,xd,yd,sigx,sigy,errx,erry,MSElist,Mopt,MSEmin)
 % 绘制噪声信号
 figure;
 subplot(1,2,1);
@@ -42,14 +42,25 @@ title('y方向误差');
 %绘制均方误差
 figure;
 plot(MSElist)
+hold on
+plot(Mopt,MSEmin,'ro')
 title('均方误差');
-%4.绘制结果
+%绘制结果
 figure;
-title('观测、期望和滤波信号')
+subplot(1,2,1);
 plot(x, y, '*b')
 hold on
 plot(xd, yd, 'og')
 hold on
 plot(sigx,sigy,'xr');
 axis equal
+title('观测、期望和滤波信号')
+subplot(1,2,2);
+plot(x, y, 'b')
+hold on
+plot(xd, yd, 'g')
+hold on
+plot(sigx,sigy,'r');
+axis equal
+title('观测、期望和滤波信号')
 end
