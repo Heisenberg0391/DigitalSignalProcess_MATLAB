@@ -12,7 +12,7 @@ N = 500; %样本点数
 r=1;
 n=(2*pi/N):(2*pi/N):2*pi;
 % 高斯白噪声
-noise_x = normrnd(0,sqrt(0.05),1,N);
+noise_x = normrnd(0,sqrt(0.09),1,N);
 noise_y = normrnd(0,sqrt(0.06),1,N);
 
 % 观测信号
