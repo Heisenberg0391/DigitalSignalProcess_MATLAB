@@ -1,4 +1,4 @@
-function [Mopt,MSElist] = findM(rxx,x,xd,N)
+function [Mopt,MSElist,MSEmin] = findM(rxx,x,xd,N)
 %寻找最优序列长度
 MSElist = zeros(N-1);%初始化
 for M = 1:N-1
@@ -21,7 +21,7 @@ for M = 1:N-1
     errx = sigx-xd;
 
     % 求均方误差
-    MSE = sum(errx.^2);
+    MSE = sum(errx.^2)/N;
     MSElist(M) = MSE;
     
     if(M==1)%第一次的MSE作为初始值

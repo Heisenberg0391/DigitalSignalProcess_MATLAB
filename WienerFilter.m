@@ -29,8 +29,8 @@ rxx = rxx(N:end)'; %取正半轴
 ryy = ryy(N:end)';
 
 % 求相关矩阵
-[Moptx,MSElistx] = findM(rxx,x,xd,N);% 找到x方向最优序列长度
-[Mopty,MSElisty] = findM(ryy,y,yd,N);% 找到x方向最优序列长度
+[Moptx,MSElistx,MSEx] = findM(rxx,x,xd,N);% 找到x方向最优序列长度
+[Mopty,MSElisty,MSEy] = findM(ryy,y,yd,N);% 找到x方向最优序列长度
 Rxx = ones(Moptx,Moptx);
 Rxx(:,1) = rxx(1:Moptx);
 Ryy = ones(Mopty,Mopty);
@@ -62,8 +62,8 @@ sigy = filt_y(1:N);
 errx = sigx-xd;
 erry = sigy-yd;
 % 求均方误差
-MSEx = sum(errx.^2);
-MSEy = sum(erry.^2);
+MSEx 
+MSEy 
 Moptx
 Mopty
 %7. 绘图
