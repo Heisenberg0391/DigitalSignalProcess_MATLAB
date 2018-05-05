@@ -1,7 +1,7 @@
 % 20180402张磊
 % 现代数字信号处理第一次上机作业
-% 请将experiment.m、findM.m和MyPlot.m
-% 放在同一路径，然后运行experiment.m                        
+% 请将WienerFilter.m、findM.m和MyPlot.m
+% 放在同一路径，然后运行WienerFilter.m                        
 clear
 clc
 close all

@@ -27,7 +27,7 @@ M = 50; % 滤波器阶次
 W = randn(M,1);
 % 超参数
 alpha = 0.00001; % 学习率
-epoch = 1000; % 学习次数
+epoch = 300; % 学习次数
 % 损失函数
 losses = [];
 % 训练集
@@ -49,10 +49,11 @@ for i = 1:epoch
     % 更新权重
     W =  W - alpha*gradient;
 end
-plot(losses);
+
 % 3.滤波
 y = conv(x, W);
 y = y(1:N);
+
 % 4.绘制结果
 figure;
 title('滤波结果');
@@ -61,14 +62,11 @@ plot(y, 'r');
 hold on
 plot(x, 'b');
 legend('滤波结果', '观测信号');
+figure;
+plot(losses);
+title('损失函数');
+xlabel('训练次数')
+ylabel('均方误差')
 
-% plot(MSElist)
-% 
-% plot(MSElist)
-% hold on
-% plot(Mopt,MSE,'ro')
-% 
-% xlabel('滤波器阶次')
-% ylabel('均方误差')
 
 

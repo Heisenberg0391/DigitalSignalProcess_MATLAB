@@ -65,6 +65,7 @@ hold on
 plot(sigx,sigy,'xr');
 axis equal
 title('观测、期望和滤波信号')
+legend('观测信号','期望信号','滤波后信号')
 subplot(1,2,2);
 plot(x, y, 'b')
 hold on
@@ -73,4 +74,5 @@ hold on
 plot(sigx,sigy,'r');
 axis equal
 title('观测、期望和滤波信号')
+legend('观测信号','期望信号','滤波后信号')
 end
