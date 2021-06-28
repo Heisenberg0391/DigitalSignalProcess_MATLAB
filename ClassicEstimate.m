@@ -1,39 +1,37 @@
-% 20180505ÕÅÀÚ
-% ÏÖ´úÊı×ÖĞÅºÅ´¦ÀíµÚÈı´ÎÉÏ»ú×÷Òµ1
-% ¾­µäÆ×¹À¼Æ           
+%ç»å…¸è°±ä¼°è®¡           
 clear
 clc
 close all
 
-% 1.Éú³É¹Û²âĞÅºÅ
-N = 256;   %Ñù±¾µãÊı
+% 1.ç”Ÿæˆè§‚æµ‹ä¿¡å·
+N = 256;   %æ ·æœ¬ç‚¹æ•°
 
-% ¸ßË¹°×ÔëÉùw(n)
+% é«˜æ–¯ç™½å™ªå£°w(n)
 var = 1;
-noise = normrnd(0,sqrt(var),1,N);% ¾ùÖµ£¬±ê×¼²î£¬start, end
+noise = normrnd(0,sqrt(var),1,N);% å‡å€¼ï¼Œæ ‡å‡†å·®ï¼Œstart, end
 
-% ¹Û²âĞÅºÅx(n)
+% è§‚æµ‹ä¿¡å·x(n)
 x = [];
 for n=1:N
     x = [x sample(n, noise)];
 end
 
 
-% 2. Çóx(n)µÄÀíÏë¹¦ÂÊÆ×
+% 2. æ±‚x(n)çš„ç†æƒ³åŠŸç‡è°±
 syms z
 Hz = z/(z-0.8);
 b=[1 0];
-a=[1 -0.8];%ÊäÈëÏµÍ³µÄÏµÊı¾ØÕó
+a=[1 -0.8];%è¾“å…¥ç³»ç»Ÿçš„ç³»æ•°çŸ©é˜µ
 [X,w]=freqz(b,a);
 % plot(w/pi,abs(X));
 Sxx = abs(X).^2*var;
 
- % 3. ÖÜÆÚÍ¼·¨
-% ¹¦ÂÊÆ×
+ % 3. å‘¨æœŸå›¾æ³•
+% åŠŸç‡è°±
 Pxx = fft(x, N);
 Pxx = (abs(Pxx).^2)/N;
 Pxx = fftshift(Pxx);
-% 4. BartlettÆ½¾ùÖÜÆÚÍ¼·¨
+% 4. Bartlettå¹³å‡å‘¨æœŸå›¾æ³•
 L = 8;
 M = N/L;
 P = 0;
@@ -44,16 +42,16 @@ for i = 1:L
 end
 P = P/L;
 P = fftshift(P);
-%5. »æÍ¼
+%5. ç»˜å›¾
 figure;
 plot(x)
-title('¹Û²âĞÅºÅ');
+title('è§‚æµ‹ä¿¡å·');
 figure;
 plot(Sxx);
-title('ÀíÏë¹¦ÂÊÆ×');
+title('ç†æƒ³åŠŸç‡è°±');
 figure;
 plot(Pxx(N/2+1:end));
-title('ÖÜÆÚÍ¼Æ×');
+title('å‘¨æœŸå›¾è°±');
 figure;
 plot(P(N/2+1:end));
 title('Bartlett');
