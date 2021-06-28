@@ -1,36 +1,34 @@
-% 20180402ÕÅÀÚ
-% ÏÖ´úÊı×ÖĞÅºÅ´¦ÀíµÚÒ»´ÎÉÏ»ú×÷Òµ
-% Çë½«WienerFilter.m¡¢findM.mºÍMyPlot.m
-% ·ÅÔÚÍ¬Ò»Â·¾¶£¬È»ºóÔËĞĞWienerFilter.m                        
+% è¯·å°†WienerFilter.mã€findM.må’ŒMyPlot.m
+% æ”¾åœ¨åŒä¸€è·¯å¾„ï¼Œç„¶åè¿è¡ŒWienerFilter.m                        
 clear
 clc
 close all
 
-% 1.Éú³É¹Û²âĞÅºÅ
-N = 500; %Ñù±¾µãÊı
-% ±äÁ¿
+% 1.ç”Ÿæˆè§‚æµ‹ä¿¡å·
+N = 500; %æ ·æœ¬ç‚¹æ•°
+% å˜é‡
 r=1;
 n=(2*pi/N):(2*pi/N):2*pi;
-% ¸ßË¹°×ÔëÉù
+% é«˜æ–¯ç™½å™ªå£°
 noise_x = normrnd(0,sqrt(0.05),1,N);
 noise_y = normrnd(0,sqrt(0.06),1,N);
 
-% ¹Û²âĞÅºÅ
+% è§‚æµ‹ä¿¡å·
 x = r*cos(n) + noise_x;
 y = r*sin(n) + noise_y;
-% ÆÚÍûĞÅºÅ
+% æœŸæœ›ä¿¡å·
 xd = r*cos(n);
 yd = r*sin(n);
 
-% 2. Çó¹Û²âĞÅºÅ×ÔÏà¹Ø
+% 2. æ±‚è§‚æµ‹ä¿¡å·è‡ªç›¸å…³
 [rxx,lagxx] = xcorr(x,'biased');
-rxx = rxx(N:end)'; %È¡Õı°ëÖá
+rxx = rxx(N:end)'; %å–æ­£åŠè½´
 [ryy,lagyy] = xcorr(y,'biased');
 ryy = ryy(N:end)';
 
-% ÇóÏà¹Ø¾ØÕó
-[Moptx,MSElistx,MSEx] = findM(rxx,x,xd,N);% ÕÒµ½x·½Ïò×îÓÅĞòÁĞ³¤¶È
-[Mopty,MSElisty,MSEy] = findM(ryy,y,yd,N);% ÕÒµ½x·½Ïò×îÓÅĞòÁĞ³¤¶È
+% æ±‚ç›¸å…³çŸ©é˜µ
+[Moptx,MSElistx,MSEx] = findM(rxx,x,xd,N);% æ‰¾åˆ°xæ–¹å‘æœ€ä¼˜åºåˆ—é•¿åº¦
+[Mopty,MSElisty,MSEy] = findM(ryy,y,yd,N);% æ‰¾åˆ°xæ–¹å‘æœ€ä¼˜åºåˆ—é•¿åº¦
 Rxx = ones(Moptx,Moptx);
 Rxx(:,1) = rxx(1:Moptx);
 Ryy = ones(Mopty,Mopty);
@@ -41,7 +39,7 @@ end
 for i=2:Mopty
     Ryy(:,i) = [ryy(i);Ryy(1:Mopty-1,i-1)];
 end
-%3. Çó¹Û²âĞÅºÅºÍÆÚÍûĞÅºÅµÄ»¥Ïà¹Ø
+%3. æ±‚è§‚æµ‹ä¿¡å·å’ŒæœŸæœ›ä¿¡å·çš„äº’ç›¸å…³
 [rxd,lagxd] = xcorr(x,xd,'biased');
 rxd = rxd(N:end)';
 [ryd,lagyd] = xcorr(y,yd,'biased');
@@ -49,22 +47,22 @@ ryd = ryd(N:end)';
 
 Rxd = rxd(1:Moptx,1);
 Ryd = ryd(1:Mopty,1);
-%4. µÃµ½Î¬ÄÉÂË²¨Æ÷×îÓÅ½â
+%4. å¾—åˆ°ç»´çº³æ»¤æ³¢å™¨æœ€ä¼˜è§£
 hopt_x=(Rxx)\Rxd;   %inv(Rxx)*Rxd
 hopt_y=(Ryy)\Ryd;
-%5. ÂË²¨
+%5. æ»¤æ³¢
 filt_x = conv(x,hopt_x);
 sigx = filt_x(1:N);
 filt_y = conv(y,hopt_y);
 sigy = filt_y(1:N);
 
-%6. ÇóÎó²î
+%6. æ±‚è¯¯å·®
 errx = sigx-xd;
 erry = sigy-yd;
-% Çó¾ù·½Îó²î
+% æ±‚å‡æ–¹è¯¯å·®
 MSEx 
 MSEy 
 Moptx
 Mopty
-%7. »æÍ¼
+%7. ç»˜å›¾
 MyPlot(noise_x,noise_y,x,y,xd,yd,sigx,sigy,errx,erry,MSElistx,Moptx,MSElisty,Mopty,MSEx,MSEy);
