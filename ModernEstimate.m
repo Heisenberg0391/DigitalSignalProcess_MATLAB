@@ -1,18 +1,16 @@
-% 20180505ÕÅÀÚ
-% ÏÖ´úÊı×ÖĞÅºÅ´¦ÀíµÚÈı´ÎÉÏ»ú×÷Òµ2
-% ÏÖ´úÆ×¹À¼Æ  
+% ç°ä»£è°±ä¼°è®¡  
 clear
 clc
 close all
-%1. Éú³ÉĞÅºÅ
+%1. ç”Ÿæˆä¿¡å·
 fs = 1000;
 N = 1000;
 T = N/fs;
 n=1/fs:1/fs:T;
-% ¸ßË¹°×ÔëÉùw(n)
+% é«˜æ–¯ç™½å™ªå£°w(n)
 var = 1;
-noise = normrnd(0,sqrt(var),1,N);% ¾ùÖµ£¬±ê×¼²î£¬start, end
-% ÕıÏÒĞÅºÅ
+noise = normrnd(0,sqrt(var),1,N);% å‡å€¼ï¼Œæ ‡å‡†å·®ï¼Œstart, end
+% æ­£å¼¦ä¿¡å·
 A = 1*var;
 w1 = 2*pi*100;
 sig1 = A*sin(w1*n);
@@ -22,42 +20,42 @@ sig2 = B*sin(w2*n);
 x = sig1+sig2+noise;
 plot(x)
 
-%2. Æ×¹À¼Æ
+%2. è°±ä¼°è®¡
 p = 500;
-%£¨1£©×ÔÏà¹Ø·¨
+%ï¼ˆ1ï¼‰è‡ªç›¸å…³æ³•
 Pxx = pyulear(x,p,N);%pyulear(X,ORDER,NFFT) 
 Pxx = 10*log10(Pxx);
 Pmax = max(Pxx);
 Pxx = Pxx-Pmax;
 figure;
 plot(Pxx);
-title('×ÔÏà¹Ø·¨');
+title('è‡ªç›¸å…³æ³•');
 grid on
-%£¨2£©burg·¨
+%ï¼ˆ2ï¼‰burgæ³•
 Pxx = pburg(x,p);%pyulear(X,ORDER) 
 Pxx = 10*log10(Pxx);
 Pmax = max(Pxx);
 Pxx = Pxx-Pmax;
 figure;
 plot(Pxx);
-title('burg·¨');
+title('burgæ³•');
 grid on
-%(3)Ğ­·½²î·¨
+%(3)åæ–¹å·®æ³•
 Pxx = pcov(x,p);
 Pxx = 10*log10(Pxx);
 Pmax = max(Pxx);
 Pxx = Pxx-Pmax;
 figure
 plot(Pxx);
-title('Ğ­·½²î·¨');
+title('åæ–¹å·®æ³•');
 grid on
-%(4)ĞŞÕıĞ­·½²î·¨
+%(4)ä¿®æ­£åæ–¹å·®æ³•
 Pxx = pmcov(x,p);
 Pxx = 10*log10(Pxx);
 Pmax = max(Pxx);
 Pxx = Pxx-Pmax;
 figure
 plot(Pxx);
-title('ĞŞÕıĞ­·½²î·¨');
+title('ä¿®æ­£åæ–¹å·®æ³•');
 grid on
 
